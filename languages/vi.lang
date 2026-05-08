@@ -1,59 +1,155 @@
-handlerEvents.commandNotFound2=Lệnh bạn sử dụng không tồn tại, gõ %1help để xem tất cả lệnh hiện có
-handlerEvents.commandSyntaxError=Lệnh bạn đang sử dụng sai cú pháp, vui lòng gõ %1help %2 để xem chi tiết cách sử dụng lệnh này
-handlerEvents.onlyAdmin=❌ | Chỉ quản trị viên của nhóm chat mới có thể dùng lệnh "%1"
-handlerEvents.onlyAdminToUseOnReply=❌ | Chỉ quản trị viên của nhóm chat mới có thể dùng chức năng reply của lệnh "%1"
-handlerEvents.onlyAdminToUseOnReaction=❌ | Chỉ quản trị viên của nhóm chat mới có thể dùng chức năng reaction của lệnh "%1"
-handlerEvents.onlyAdminBot2=❌ | Chỉ admin bot mới có thể dùng lệnh "%1"
-handlerEvents.onlyAdminBot2ToUseOnReply=❌ | Chỉ admin bot mới có thể dùng chức năng reply của lệnh "%1"
-handlerEvents.onlyAdminBot2ToUseOnReaction=❌ | Chỉ admin bot mới có thể dùng chức năng reaction của lệnh "%1"
-handlerEvents.waitingForCommand=⏱ Bạn đang trong thời gian chờ sử dụng lệnh này, vui lòng quay lại sau %1s
-handlerEvents.errorOccurred=❌ [ %1 ]\nĐã xảy ra lỗi tại command "%2"\n\n%3
-handlerEvents.errorOccurred2=❌ [ %1 ]\nĐã xảy ra lỗi tại command onChat ở lệnh "%2"\n\n%3
-handlerEvents.errorOccurred3=❌ [ %1 ]\nĐã xảy ra lỗi khi thực thi onReply tại command "%2"\n\n%3
-handlerEvents.errorOccurred4=❌ [ %1 ]\n Đã xảy ra lỗi khi thực thi onReaction tại command "%2"\n\n%3
-handlerEvents.errorOccurred5=❌ [ %1 ]\nĐã xảy ra lỗi tại command event "%2"\n\n%3
-handlerEvents.errorOccurred6=❌ [ %1 ]\nĐã xảy ra lỗi tại command onEvent ở lệnh "%2"\n\n%3
-handlerEvents.errorOccurred7=❌ [ %1 ]\nĐã xảy ra lỗi khi thực thi onAnyEvent tại command "%2"\n\n%3
-handlerEvents.cannotFindCommandName=❌ Không tìm thấy tên lệnh để thực thi phản hồi này!
-handlerEvents.cannotFindCommand=❌ Không tìm thấy lệnh "%1" để thực thi phản hồi này!
+# index.js
+Goat.newVersionDetected=Tu utilises la version %1, la dernière version est %2. Mets à jour le bot pour une meilleure expérience en tapant dans la console : %3
+Goat.autoRestart1=Le bot redémarrera automatiquement dans %1
+Goat.autoRestart2=Redémarrage automatique programmé (cron) : %1
+Goat.googleApiTokenExpired=Le jeton Google API a expiré ou a été révoqué. Récupère un nouveau jeton ici : https://developers.google.com/oauthplayground/
+
+# bot/login/login.js
+login.currentlyLogged=Connexion aux archives en cours...
+login.notFoundDirAccount=Impossible de trouver le fichier %1
+login.loginToken=Connexion via Access Token
+login.loginCookieString=Connexion via Cookie String
+login.loginCookieNetscape=Connexion via Cookie Netscape
+login.loginCookieArray=Connexion via Cookie Array
+login.accountError=Format invalide. Entre le token (commençant par %1) ou le cookie dans %7
+login.cannotFindAccount=Compte Facebook introuvable. Choisis une option (numéro ou flèches + Entrée) :
+login.chooseAccount=Se connecter avec Email et Mot de passe
+login.chooseToken=Se connecter avec un Token Full Permission
+login.chooseCookieString=Se connecter avec une Cookie String
+login.chooseCookieArray=Se connecter avec un Cookie Array
+login.loginWith=Tu as choisi : %1
+login.inputEmail=> Entre ton email (ID) ou numéro de téléphone Facebook :
+login.inputPassword=> Entre ton mot de passe :
+login.input2FA=> Entre le code 2FA (laisse vide si désactivé) :
+login.inputToken=> Entre ton Token Full Permission (commence par EAAAA) :
+login.inputCookieString=> Entre ta Cookie String :
+login.inputCookieArray=> Entre ton Cookie Array :
+login.refreshCookie=Rafraîchissement du cookie...
+login.refreshCookieError=Erreur lors du rafraîchissement du cookie.
+login.refreshCookieSuccess=Cookie rafraîchi ! Redémarre le bot pour l'utiliser.
+login.refreshCookieWarning=Mode auto-refresh activé, mais l'email/password manque dans config.json.
+login.tokenError=Token invalide ou expiré. Vérifie le fichier %2.
+login.cookieError=Cookie invalide ou expiré.
+login.loginPassword=Connexion via email & pass dans config.json...
+login.loginPasswordError=Erreur de connexion via email/pass.
+login.loginSuccess=Connexion réussie aux serveurs Uchiha.
+login.loginError=Échec de la connexion.
+login.openDashboardSuccess=Tableau de bord Camille ouvert avec succès.
+login.openDashboardError=Impossible d'ouvrir le tableau de bord.
+login.changeGbanData=LES DONNÉES ONT ÉTÉ MODIFIÉES, LANCEMENT IMPOSSIBLE.
+login.errorNoti=Erreur lors de la récupération du message.
+login.refreshFbstateSuccess=Fichier %1 mis à jour.
+login.refreshFbstateError=Erreur lors de la mise à jour de %1.
+login.youAreBanned=Tu as été banni du projet Camille Bot.
+login.runBot=Lancement réussi. Écoute des messages activée...
+login.notLoggedIn=Erreur de connexion : vérifie ton compte Facebook.
+login.callBackError=Erreur fatale ListenMqtt.
+login.userBanned=Ton accès au bot a été révoqué (Global Ban) !!
+login.checkGbanError=Erreur de vérification GBAN. Tape : node update
+login.gbanMessage=Tu as été banni du projet Camille le %1.\nRaison : %2\nTemps : %3
+login.gbanMessageToDate=Banni le %1.\nRaison : %2\nFin du bannissement : %4
+login.gbanAdminMessage=L'utilisateur %1 a été banni le %2. Raison : %3
+login.openServerUptimeSuccess=🚀 Serveur Uptime activé : %1
+login.openServerUptimeError=Impossible d'ouvrir le serveur Uptime.
+login.restartListenMessage=Redémarrage ListenMQTT activé toutes les %1.
+login.stopRestartListenMessage=Redémarrage ListenMQTT désactivé.
+login.restartListenMessageError=Erreur lors du redémarrage ListenMQTT.
+login.restartListenMessage2=ListenMQTT redémarré avec succès.
+login.refreshCookieAfter=Rafraîchissement automatique du cookie activé toutes les %1.
+login.listenMqttClose=ListenMQTT fermé.
+login.listenMqttCloseByUser=ListenMQTT fermé par l'utilisateur.
+login.retryCheckLiveCookie=Vérification du cookie en cours... %1
+login.startBotSuccess=Camille 2.0 est opérationnel. Prêt à recevoir des ordres.
+
+version.tooOldVersion=Ta version est trop ancienne. Mets-toi à jour avec la commande : %1
+
+# bot/custom.js
+custom.refreshedFb_dtsg=fb_dtsg et jazoest rafraîchis.
+custom.refreshedFb_dtsgError=Échec du rafraîchissement fb_dtsg.
+
+# bot/login/loadData.js
+loadData.loadThreadDataSuccess=Données de %1 groupes chargées !
+loadData.loadUserDataSuccess=Données de %1 utilisateurs chargées !
+loadData.refreshingThreadData=Mise à jour des informations des groupes...
+loadData.refreshThreadDataSuccess=Infos de %1 groupes mises à jour !
+loadData.refreshThreadDataError=Erreur lors de la mise à jour des groupes.
+
+# bot/login/loadScripts.js
+loadScripts.loadScriptsError=Erreur de chargement pour les fichiers : %1
+loadScripts.loadScriptsNotMatchOrigin=Les fichiers %1 ne correspondent pas au code original sur GitHub.
+loadScripts.NOT_FOUND=INTROUVABLE DANS LA SOURCE ORIGINALE :
+loadScripts.NOT_MATCH=NE CORRESPOND PAS À L'ORIGINAL :
+
+# bot/login/socketIO.js
+socketIO.connected=Connecté au serveur Socket.io.
+socketIO.error=Erreur de connexion Socket.io.
+
+# bot/handler/handlerCheckData.js
+handlerCheckData.cantCreateThread=Impossible d'enregistrer le groupe '%1' en base de données.
+handlerCheckData.cantCreateUser=Impossible d'enregistrer l'utilisateur '%1' en base de données.
+
+# bot/handler/handlerEvents.js
+handlerEvents.userBanned=╔═══════ 🍎 ═══════╗\n   🚫 **ACCÈS RÉVOQUÉ** 🚫\n╚═══════ 🍎 ═══════╝\nTu as été banni par l'Admin.\n» Raison : %1\n» Temps : %2\n» ID : %3
+handlerEvents.threadBanned=╔═══════ 🍎 ═══════╗\n   🚫 **GROUPE BANNI** 🚫\n╚═══════ 🍎 ═══════╝\nCe groupe a été banni.\n» Raison : %1\n» ID : %3
+handlerEvents.onlyAdminBox=Le mode "Admin de groupe" est actif. Seuls les chefs peuvent me parler.
+handlerEvents.onlyAdminBot=╭───── • 🍎 • ─────╮\n   ACCÈS REFUSÉ\n╰───── • 🍎 • ─────╯\n\n❌ Seuls les admins du clan Camille peuvent m'utiliser actuellement.
+handlerEvents.commandNotFound=La technique "%1" n'existe pas. Tape %2help pour voir mes capacités.
+handlerEvents.commandNotFound2=Commande inconnue. Tape %1help pour voir la liste complète.
+handlerEvents.commandSyntaxError=Erreur de syntaxe. Tape %1help %2 pour apprendre à utiliser cette technique.
+handlerEvents.onlyAdmin=❌ | Désolé, seuls les administrateurs du groupe peuvent utiliser "%1".
+handlerEvents.onlyAdminToUseOnReply=❌ | Seuls les admins peuvent répondre à la commande "%1".
+handlerEvents.onlyAdminToUseOnReaction=❌ | Seuls les admins peuvent réagir à la commande "%1".
+handlerEvents.onlyAdminBot2=❌ | Désolé, seul l'Admin Bot (Camille) peut utiliser "%1".
+handlerEvents.onlyAdminBot2ToUseOnReply=❌ | Réservé à l'Admin Bot : fonction reply de "%1".
+handlerEvents.onlyAdminBot2ToUseOnReaction=❌ | Réservé à l'Admin Bot : fonction reaction de "%1".
+handlerEvents.waitingForCommand=⏱ Calme ton Sharingan ! Attends encore %1s avant de réutiliser cette technique.
+handlerEvents.errorOccurred=❌ [ %1 ]\nErreur lors de la commande "%2"\n\n%3
+handlerEvents.errorOccurred2=❌ [ %1 ]\nErreur dans onChat (Commande "%2")\n\n%3
+handlerEvents.errorOccurred3=❌ [ %1 ]\nErreur dans onReply (Commande "%2")\n\n%3
+handlerEvents.errorOccurred4=❌ [ %1 ]\nErreur dans onReaction (Commande "%2")\n\n%3
+handlerEvents.errorOccurred5=❌ [ %1 ]\nErreur dans l'événement "%2"\n\n%3
+handlerEvents.errorOccurred6=❌ [ %1 ]\nErreur dans onEvent (Commande "%2")\n\n%3
+handlerEvents.errorOccurred7=❌ [ %1 ]\nErreur dans onAnyEvent (Commande "%2")\n\n%3
+handlerEvents.cannotFindCommandName=❌ Impossible de trouver le nom de la commande pour l'exécution !
+handlerEvents.cannotFindCommand=❌ Commande "%1" introuvable pour cette réponse.
 
 # bot/autoUptime.js
-autoUptime.autoUptimeTurnedOn=Đã bật chế độ autoUptime
+autoUptime.autoUptimeTurnedOn=Mode AutoUptime activé.
 
 # database/controller/index.js
-indexController.connectingMongoDB=Đang kết nối cơ sở dữ liệu MONGODB
-indexController.connectMongoDBSuccess=Đã kết nối cơ sở dữ liệu Mongodb thành công!
-indexController.connectMongoDBError=Đã xảy ra lỗi khi kết nối cơ sở dữ liệu Mongodb:
-indexController.connectingMySQL=Đang kết nối cơ sở dữ liệu SQLITE
-indexController.connectMySQLSuccess=Đã kết nối cơ sở dữ liệu SQLITE thành công!
-indexController.connectMySQLError=Đã xảy ra lỗi khi kết nối cơ sở dữ liệu SQLITE:
+indexController.connectingMongoDB=Connexion à la base de données MONGODB...
+indexController.connectMongoDBSuccess=Connexion réussie à MongoDB !
+indexController.connectMongoDBError=Échec de connexion à MongoDB :
+indexController.connectingMySQL=Connexion à la base de données SQLITE...
+indexController.connectMySQLSuccess=Connexion réussie à SQLITE !
+indexController.connectMySQLError=Échec de connexion à SQLITE :
 
 # updater.js
-updater.updateTooFast=Vui lòng đợi ít nhất 5 phút sau khi commit mới nhất để update không bị lỗi, còn %1 phút %2 giây nữa
-updater.latestVersion=Bạn đang sử dụng phiên bản mới nhất
-updater.cantFindVersion=Bạn đang sử dụng phiên bản không xác định (%1), vui lòng kiểm tra lại tệp package.json của bạn
-updater.newVersions=Có %1 phiên bản cần cập nhật mới, bất đầu tiến hành cập nhật...
-updater.updateSuccess=Cập nhật thành công%1
-updater.configChanged=Tệp %1 đã được thay đổi, vui lòng kiểm tra lại tệp config.json của bạn
-updater.installingPackages=Đang cài đặt các gói phụ thuộc cho bot...
-updater.installSuccess=Cài đặt các gói phụ thuộc thành công, khởi động lại bot để sử dụng phiên bản mới
-updater.backupSuccess=Đã sao lưu thành công các file bị thay đổi, xem tại thư mục %1
-updater.restartToApply=. Khởi động lại bot để sử dụng phiên bản mới
-updater.skipFile=Đã có phiên bản mới của file %1, nhưng bạn đã bỏ qua file này trong quá trình cập nhật với comment %2 trong file này
+updater.updateTooFast=Attends au moins 5 minutes après le dernier commit. Reste : %1m %2s.
+updater.latestVersion=Tu utilises déjà la version la plus stable.
+updater.cantFindVersion=Version indéfinie (%1). Vérifie ton package.json.
+updater.newVersions=Il y a %1 nouvelles versions. Mise à jour lancée...
+updater.updateSuccess=Mise à jour réussie %1.
+updater.configChanged=Le fichier %1 a changé. Vérifie ton config.json.
+updater.installingPackages=Installation des dépendances Uchiha...
+updater.installSuccess=Dépendances installées. Redémarre le bot.
+updater.backupSuccess=Fichiers sauvegardés dans le dossier %1.
+updater.restartToApply=. Redémarre le bot pour appliquer la nouvelle version.
+updater.skipFile=Nouvelle version de %1 ignorée (selon tes réglages).
 
 # dashboard/routes/verifyfbid.js
-verifyfbid.sendCode=Mã xác nhận của bạn là:\n%1\nMã xác nhận có hiệu lực trong vòng %2 phút
+verifyfbid.sendCode=Ton code de vérification est : %1 (Valide %2 min).
 
 # utils.js
-utils.errorOccurred=❌ Đã xảy ra lỗi:\n\n%1
+utils.errorOccurred=❌ Une erreur est survenue :\n\n%1
 
 # for command
-command.restartedBot=Đã khởi động lại bot
+command.restartedBot=Le bot a été réinitialisé.
 
 # dashboard/app.js
-app.googleApiRefreshTokenExpired=Google API refresh token đã hết hạn hoặc bị thu hồi, vui lòng lấy lại token mới tại https://developers.google.com/oauthplayground/
-app.tooManyRequests=Quá nhiều yêu cầu trong 1 phút qua, vui lòng thử lại sau!
-app.notPermissionChangeFbstate=Bạn không có quyền thay đổi fbstate!
-app.notFoundFbstate=Vui lòng nhập fbstate!
-app.changedFbstateSuccess=Thay đổi fbstate thành công!
-app.serverError=Server đã xảy ra lỗi, vui lòng thử lại sau!
+app.googleApiRefreshTokenExpired=Jeton Google API expiré. Reprends-en un sur Google OAuth Playground.
+app.tooManyRequests=Trop de requêtes. Calme-toi et réessaie plus tard.
+app.notPermissionChangeFbstate=Tu n'as pas l'autorisation de modifier fbstate !
+app.notFoundFbstate=Entre le fbstate valide.
+app.changedFbstateSuccess=fbstate modifié avec succès.
+app.serverError=Erreur serveur. Réessaie plus tard.
