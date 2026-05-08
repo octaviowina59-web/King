@@ -1,31 +1,24 @@
-const { getTime, drive } = global.utils;
+const axios = require("axios");
+const fs = require("fs-extra");
+const moment = require("moment-timezone");
 
 module.exports = {
 	config: {
 		name: "leave",
-		version: "1.4",
-		author: "NTKhang",
+		version: "1.6",
+		author: "Camille 🤍",
 		category: "events"
 	},
 
 	langs: {
-		vi: {
-			session1: "sáng",
-			session2: "trưa",
-			session3: "chiều",
-			session4: "tối",
-			leaveType1: "tự rời",
-			leaveType2: "bị kick",
-			defaultLeaveMessage: "{userName} đã {type} khỏi nhóm"
-		},
 		en: {
-			session1: "morning",
-			session2: "noon",
-			session3: "afternoon",
-			session4: "evening",
-			leaveType1: "left",
-			leaveType2: "was kicked from",
-			defaultLeaveMessage: "{userName} {type} the group"
+			session1: "matin",
+			session2: "midi",
+			session3: "après-midi",
+			session4: "soir",
+			leaveType1: "a quitté les archives",
+			leaveType2: "a été banni",
+			defaultLeaveMessage: "╔═══════ 🍎 ═══════╗\n   🌀 **DÉPART DÉTECTÉ** 🌀\n╚═══════ 🍎 ═══════╝\n👤 Membre : {userName}\n⚡ Action : {type}\n📅 Moment : {session}\n⏰ Heure : {time}h\n●▬▬▬▬▬▬▬▬▬▬▬▬▬▬●\n🚀 Archives Uchiha"
 		}
 	},
 
@@ -36,27 +29,23 @@ module.exports = {
 				const threadData = await threadsData.get(threadID);
 				if (!threadData.settings.sendLeaveMessage)
 					return;
+				
 				const { leftParticipantFbId } = event.logMessageData;
 				if (leftParticipantFbId == api.getCurrentUserID())
 					return;
-				const hours = getTime("HH");
 
+				const timeNow = moment().tz("Africa/Abidjan");
+				const hours = timeNow.format("HH");
 				const threadName = threadData.threadName;
 				const userName = await usersData.getName(leftParticipantFbId);
 
-				// {userName}   : name of the user who left the group
-				// {type}       : type of the message (leave)
-				// {boxName}    : name of the box
-				// {threadName} : name of the box
-				// {time}       : time
-				// {session}    : session
-
 				let { leaveMessage = getLang("defaultLeaveMessage") } = threadData.data;
+				
 				const form = {
 					mentions: leaveMessage.match(/\{userNameTag\}/g) ? [{
 						tag: userName,
 						id: leftParticipantFbId
-					}] : null
+					}] : []
 				};
 
 				leaveMessage = leaveMessage
@@ -75,24 +64,24 @@ module.exports = {
 
 				form.body = leaveMessage;
 
-				if (leaveMessage.includes("{userNameTag}")) {
-					form.mentions = [{
-						id: leftParticipantFbId,
-						tag: userName
-					}];
+				// --- GESTION DU GIF UCHIHA ---
+				const gifUrl = "https://i.ibb.co/zW1DZ0KX/686325842-1275234991430767-1463208806134011730-n-gif-nc-cat-106-ccb-1-7-nc-sid-cf94fc-nc-eui2-Ae-G.gif";
+				const pathGif = __dirname + `/tmp/leave_${leftParticipantFbId}.gif`;
+
+				try {
+					if (!fs.existsSync(__dirname + "/tmp")) fs.mkdirSync(__dirname + "/tmp");
+					
+					const { data } = await axios.get(gifUrl, { responseType: "arraybuffer" });
+					fs.writeFileSync(pathGif, Buffer.from(data, "utf-8"));
+					form.attachment = [fs.createReadStream(pathGif)];
+				} catch (e) {
+					console.error("Erreur lors du chargement du GIF Uchiha:", e);
 				}
 
-				if (threadData.data.leaveAttachment) {
-					const files = threadData.data.leaveAttachment;
-					const attachments = files.reduce((acc, file) => {
-						acc.push(drive.getFile(file, "stream"));
-						return acc;
-					}, []);
-					form.attachment = (await Promise.allSettled(attachments))
-						.filter(({ status }) => status == "fulfilled")
-						.map(({ value }) => value);
-				}
-				message.send(form);
+				// Envoi du message avec suppression du fichier temporaire après envoi
+				message.send(form, () => {
+					if (fs.existsSync(pathGif)) fs.unlinkSync(pathGif);
+				});
 			};
 	}
 };
