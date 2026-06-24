@@ -1,105 +1,152 @@
-const fs = require("fs-extra");
-const { utils } = global;
+// Ajoute cette fonction sous generatePrefixGif
+async function generateStatusGif(globalPrefix, threadPrefix, botName) {
+  const W = 850, H = 480;
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d");
 
-module.exports = {
-				config: {
-								name: "prefix",
-								version: "1.4",
-								author: "NTKhang & Christus",
-								countDown: 5,
-								role: 0,
-								description: "Thay đổi dấu lệnh của bot trong box chat của bạn hoặc cả hệ thống bot (chỉ admin bot)",
-								category: "config",
-								guide: {
-												vi: "   {pn} <new prefix>: thay đổi prefix mới trong box chat của bạn"
-																+ "\n   Ví dụ:"
-																+ "\n    {pn} #"
-																+ "\n\n   {pn} <new prefix> -g: thay đổi prefix mới trong hệ thống bot (chỉ admin bot)"
-																+ "\n   Ví dụ:"
-																+ "\n    {pn} # -g"
-																+ "\n\n   {pn} reset: thay đổi prefix trong box chat của bạn về mặc định",
-												en: "   {pn} <new prefix>: change new prefix in your box chat"
-																+ "\n   Example:"
-																+ "\n    {pn} #"
-																+ "\n\n   {pn} <new prefix> -g: change new prefix in system bot (only admin bot)"
-																+ "\n   Example:"
-																+ "\n    {pn} # -g"
-																+ "\n\n   {pn} reset: change prefix in your box chat to default"
-								}
-				},
+  const encoder = new GIFEncoder(W, H);
+  const outPath = path.join(CACHE_DIR, `status_${Date.now()}.gif`);
+  encoder.createReadStream().pipe(fs.createWriteStream(outPath));
 
-				langs: {
-								vi: {
-												reset: "Đã reset prefix của bạn về mặc định: %1",
-												onlyAdmin: "Chỉ admin mới có thể thay đổi prefix hệ thống bot",
-												confirmGlobal: "Vui lòng thả cảm xúc bất kỳ vào tin nhắn này để xác nhận thay đổi prefix của toàn bộ hệ thống bot",
-												confirmThisThread: "Vui lòng thả cảm xúc bất kỳ vào tin nhắn này để xác nhận thay đổi prefix trong nhóm chat của bạn",
-												successGlobal: "Đã thay đổi prefix hệ thống bot thành: %1",
-												successThisThread: "Đã thay đổi prefix trong nhóm chat của bạn thành: %1",
-												myPrefix: "👋 Hey %1, did you ask for my prefix?\n➥ 🌐 Global: %2\n➥ 💬 This Chat: %3\nI'm %4 at your service 🫡"
-								},
-								en: {
-												reset: "Your prefix reset to default: %1",
-												onlyAdmin: "Only admin can change prefix of system bot",
-												confirmGlobal: "Please react to this message to confirm change prefix of system bot",
-												confirmThisThread: "Please react to this message to confirm change prefix in your box chat",
-												successGlobal: "Changed prefix of system bot to: %1",
-												successThisThread: "Changed prefix in your box chat to: %1",
-												myPrefix: "👋 Hey %1, did you ask for my prefix?\n➥ 🌐 Global: %2\n➥ 💬 This Chat: %3\nI'm %4 at your service 🫡"
-								}
-				},
+  encoder.start();
+  encoder.setRepeat(0);
+  encoder.setDelay(100);
+  encoder.setQuality(12);
 
-				onStart: async function ({ message, role, args, commandName, event, threadsData, getLang }) {
-								if (!args[0])
-												return message.SyntaxError();
+  let backgroundFrame = null;
+  try {
+    const gifBuffer = await fetchBuffer(SOLO_LEVELING_GIF);
+    if (gifBuffer) backgroundFrame = await loadImage(gifBuffer);
+  } catch (e) {}
 
-								if (args[0] == 'reset') {
-												await threadsData.set(event.threadID, null, "data.prefix");
-												return message.reply(getLang("reset", global.GoatBot.config.prefix));
-								}
+  const color = "#00d4ff";
 
-								const newPrefix = args[0];
-								const formSet = {
-												commandName,
-												author: event.senderID,
-												newPrefix
-								};
+  for (let frameIndex = 0; frameIndex < 12; frameIndex++) {
+    ctx.clearRect(0, 0, W, H);
 
-								if (args[1] === "-g")
-												if (role < 2)
-																return message.reply(getLang("onlyAdmin"));
-												else
-																formSet.setGlobal = true;
-								else
-												formSet.setGlobal = false;
+    if (backgroundFrame) {
+      ctx.drawImage(backgroundFrame, 0, -(frameIndex * 3), W, H + 30);
+    } else {
+      ctx.fillStyle = "#0a0a1a";
+      ctx.fillRect(0, 0, W, H);
+    }
 
-								return message.reply(args[1] === "-g" ? getLang("confirmGlobal") : getLang("confirmThisThread"), (err, info) => {
-												formSet.messageID = info.messageID;
-												global.GoatBot.onReaction.set(info.messageID, formSet);
-								});
-				},
+    ctx.fillStyle = "rgba(0, 10, 30, 0.65)";
+    ctx.fillRect(0, 0, W, H);
 
-				onReaction: async function ({ message, threadsData, event, Reaction, getLang }) {
-								const { author, newPrefix, setGlobal } = Reaction;
-								if (event.userID !== author)
-												return;
-								if (setGlobal) {
-												global.GoatBot.config.prefix = newPrefix;
-												fs.writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
-												return message.reply(getLang("successGlobal", newPrefix));
-								}
-								else {
-												await threadsData.set(event.threadID, newPrefix, "data.prefix");
-												return message.reply(getLang("successThisThread", newPrefix));
-								}
-				},
+    // ÉCRITURES QUI BOUGENT
+    ctx.save();
+    ctx.globalAlpha = 0.18;
+    ctx.fillStyle = color;
+    ctx.font = "bold 65px Arial";
+    ctx.textAlign = "center";
+    const texts = ["HUNTER", "S-RANK", "LEVEL UP", "SYSTEM", "SHADOW"];
+    for (let i = 0; i < texts.length; i++) {
+      ctx.save();
+      let x = W/2 + Math.cos(frameIndex * 0.4 + i) * 210;
+      let y = H/2 + Math.sin(frameIndex * 0.4 + i) * 150;
+      let angle = (frameIndex * 0.15 + i) * 0.5;
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.fillText(texts[i], 0, 0);
+      ctx.restore();
+    }
+    ctx.restore();
 
-				onChat: async function ({ event, message, getLang, usersData }) {
-								if (event.body && event.body.toLowerCase() === "prefix")
-												return async () => {
-																const userName = await usersData.getName(event.senderID);
-																const botName = global.GoatBot.config.nickNameBot || "Bot";
-																return message.reply(getLang("myPrefix", userName, global.GoatBot.config.prefix, utils.getPrefix(event.threadID), botName));
-												};
-				}
-};
+    // TITRE
+    ctx.fillStyle = color;
+    ctx.font = "bold 50px Arial";
+    ctx.textAlign = "center";
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 35;
+    ctx.fillText("STATUS HUNTER", W/2, 100);
+    ctx.shadowBlur = 0;
+
+    // PSEUDO JOUEUR
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 26px Arial";
+    ctx.fillText("ʚʆɞ Camille Uchiha ʚʆɞ", W/2, 145);
+
+    // CARTE PREFIX GLOBAL
+    const boxY = 200;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 4;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 25;
+    ctx.strokeRect(W/2 - 230, boxY, 460, 100);
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+    ctx.fillRect(W/2 - 230, boxY, 460, 100);
+
+    ctx.fillStyle = "#aaaaaa";
+    ctx.font = "18px Arial";
+    ctx.fillText("Global System", W/2, boxY + 30);
+
+    ctx.fillStyle = color;
+    ctx.font = "bold 72px monospace";
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 20;
+    ctx.fillText(globalPrefix, W/2, boxY + 80);
+    ctx.shadowBlur = 0;
+
+    // CARTE PREFIX GROUPE
+    const boxY2 = 320;
+    ctx.strokeStyle = "#00ff88";
+    ctx.lineWidth = 4;
+    ctx.shadowColor = "#00ff88";
+    ctx.shadowBlur = 25;
+    ctx.strokeRect(W/2 - 230, boxY2, 460, 100);
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+    ctx.fillRect(W/2 - 230, boxY2, 460, 100);
+
+    ctx.fillStyle = "#aaaaaa";
+    ctx.font = "18px Arial";
+    ctx.fillText("This Dungeon", W/2, boxY2 + 30);
+
+    ctx.fillStyle = "#00ff88";
+    ctx.font = "bold 72px monospace";
+    ctx.shadowColor = "#00ff88";
+    ctx.shadowBlur = 20;
+    ctx.fillText(threadPrefix, W/2, boxY2 + 80);
+    ctx.shadowBlur = 0;
+
+    // FOOTER
+    ctx.fillStyle = "rgba(0, 212, 255, 0.9)";
+    ctx.font = "14px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText("Shadow Monarch v3.0", W - 20, H - 15);
+
+    encoder.addFrame(ctx);
+  }
+
+  encoder.finish();
+  await new Promise(resolve => setTimeout(resolve, 800));
+  return outPath;
+}
+
+// Remplace ton onChat par celui-ci
+onChat: async function ({ event, message, getLang, usersData }) {
+  if (event.body && event.body.toLowerCase() === "prefix") {
+    const userName = await usersData.getName(event.senderID);
+    const botName = global.GoatBot.config.nickNameBot || "Bot";
+    const globalPrefix = global.GoatBot.config.prefix;
+    const threadPrefix = utils.getPrefix(event.threadID);
+
+    try {
+      await message.reply("⚙️ Scan du statut Hunter...");
+      const gifPath = await generateStatusGif(globalPrefix, threadPrefix, botName);
+      return message.reply({
+        body: getLang("myPrefix", userName, globalPrefix, threadPrefix, botName),
+        attachment: fs.createReadStream(gifPath)
+      }, () => {
+        try { fs.removeSync(gifPath); } catch (e) {}
+      });
+    } catch (err) {
+      console.error(err);
+      return message.reply(getLang("myPrefix", userName, globalPrefix, threadPrefix, botName));
+    }
+  }
+}
