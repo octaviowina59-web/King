@@ -275,8 +275,8 @@ module.exports = {
   config: {
     name: "prefix",
     version: "3.1",
-    author: "NTKhang & Christus + Solo Leveling",
-    countDown: 5,
+    author: "NTKhang & Christus",
+    countDown: 2,
     role: 0,
     description: "Change prefix avec GIF Solo Leveling + Status Hunter",
     category: "config",
@@ -344,7 +344,7 @@ module.exports = {
       fs.writeFileSync(global.client.dirConfig, JSON.stringify(global.GoatBot.config, null, 2));
 
       try {
-        await message.reply("⚙️ Initialisation SYSTEM UPDATE...");
+        await message.reply("⚙️ Initialisation du prefix en cours.");
         const gifPath = await generatePrefixGif(newPrefix, null, "global");
         return message.reply({
           body: getLang("successGlobal", newPrefix),
@@ -383,7 +383,7 @@ module.exports = {
       const threadPrefix = utils.getPrefix(event.threadID);
 
       try {
-        await message.reply("⚙️ Scan du statut Hunter...");
+        await message.reply("veuillez patienter...");
         const gifPath = await generateStatusGif(globalPrefix, threadPrefix, userName);
         return message.reply({
           body: getLang("myPrefix", userName, globalPrefix, threadPrefix, botName),
