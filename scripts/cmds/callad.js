@@ -4,15 +4,16 @@ const mediaTypes = ["photo", "png", "animated_image", "video", "audio"];
 module.exports = {
 	config: {
 		name: "callad",
-		version: "1.7",
+	version: "1.8",
 		author: "NTKhang",
+		editor: "Camille Uchiha 🍓",
 		countDown: 5,
 		role: 0,
 		description: {
 			vi: "gửi báo cáo, gop ý, báo lỗi,... của bạn về admin bot",
 			en: "envoyer un rapport, des commentaires, un bug,... au bot d'administration",
 			fr: "Envoyer un rapport, des commentaires ou un bug aux administrateurs du bot"
-		},
+	},
 		category: "info",
 		guide: {
 			vi: " {pn} <tin nhắn>",
@@ -22,7 +23,7 @@ module.exports = {
 	},
 
 	languages: {
-		vi: {
+	vi: {
 			missingMessage: "Vui lòng nhập tin nhắn bạn muốn gửi về admin",
 			sendByGroup: "\n- Gửi từ nhóm: %1\n- Thread ID: %2",
 			sendByUser: "\n- Gửi từ người dùng",
@@ -36,30 +37,30 @@ module.exports = {
 			noAdmin: "Bot hiện tại không có admin nào."
 		},
 		en: {
-			missingMessage: "Veuillez saisir le message que vous souhaitez envoyer à l'administrateur.",
-			sendByGroup: "\n- Envoyé depuis le groupe : %1\n- ID du groupe : %2",
-			sendByUser: "\n- Envoyé par l'utilisateur directement",
-			content: "\n\nContenu :\n─────────────────\n%1\n─────────────────\nRépondez à ce message pour écrire à l'administrateur.",
-			success: "Votre message a été envoyé avec succès à %1 administrateur(s) !\n%2",
-			failed: "Une erreur s'est produite lors de l'envoi de votre message à %1 administrateur(s)\n%2",
-			reply: "⌖ Réponse de l'administrateur %1 :\n─────────────────\n%2\n─────────────────\nRépondez à ce message pour continuer à écrire à l'administrateur.",
-			replySuccess: "Votre réponse à l'administrateur a été envoyée avec succès !",
-			feedback: "✎ Commentaires de l'utilisateur %1 :\n- ID utilisateur : %2%3\n\nContenu :\n─────────────────\n%4\n─────────────────\nRépondez à ce message pour écrire à l'utilisateur.",
-			replyUserSuccess: "Réponse envoyée à l'utilisateur avec succès !",
-			noAdmin: "Ce bot n'a pas d'administrateur configuré pour le moment."
+			missingMessage: "Please enter the message you want to send to admin",
+			sendByGroup: "\n- Sent from group: %1\n- Thread ID: %2",
+			sendByUser: "\n- Sent from user directly",
+			content: "\n\nContent:\n─────────────────\n%1\n─────────────────\nReply to this message to continue chatting with admin",
+			success: "Sent your message to %1 admin(s) successfully!\n%2",
+			failed: "An error occurred while sending your message to %1 admin(s)\n%2",
+			reply: "⌖ Reply from admin %1:\n─────────────────\n%2\n─────────────────\nReply to this message to continue chatting with admin",
+			replySuccess: "Sent your reply to admin successfully!",
+			feedback: "✎ Feedback from user %1:\n- User ID: %2%3\n\nContent:\n─────────────────\n%4\n─────────────────\nReply to this message to continue chatting with user",
+			replyUserSuccess: "Sent reply to user successfully!",
+			noAdmin: "This bot currently has no admin."
 		},
 		fr: {
-			missingMessage: "Veuillez saisir le message que vous souhaitez envoyer à l'administrateur.",
-			sendByGroup: "\n- Envoyé depuis le groupe : %1\n- ID du groupe : %2",
-			sendByUser: "\n- Envoyé par l'utilisateur directement",
-			content: "\n\nContenu :\n─────────────────\n%1\n─────────────────\nRépondez à ce message pour écrire à l'administrateur.",
-			success: "Votre message a été envoyé avec succès à %1 administrateur(s) !\n%2",
-			failed: "Une erreur s'est produite lors de l'envoi de votre message à %1 administrateur(s)\n%2",
-			reply: "⌖ Réponse de l'administrateur %1 :\n─────────────────\n%2\n─────────────────\nRépondez à ce message pour continuer à écrire à l'administrateur.",
-			replySuccess: "Votre réponse à l'administrateur a été envoyée avec succès !",
-			feedback: "✎ Commentaires de l'utilisateur %1 :\n- ID utilisateur : %2%3\n\nContenu :\n─────────────────\n%4\n─────────────────\nRépondez à ce message pour écrire à l'utilisateur.",
-			replyUserSuccess: "Réponse envoyée à l'utilisateur avec succès !",
-			noAdmin: "Ce bot n'a pas d'administrateur configuré pour le moment."
+			missingMessage: `🍓━━━━━━━━🍓\n⚠️ 𝗘𝗥𝗘𝗨𝗥\nVeuillez saisir votre message à envoyer aux admins\n🍓━━━━━━━━🍓`,
+			sendByGroup: `\n📍 𝗚𝗿𝗼𝘂𝗽𝗲: %1\n🆔 𝗜𝗗: %2`,
+			sendByUser: `\n📍 𝗠𝗣: Message privé`,
+			content: `\n\n📝 𝗖𝗢𝗡𝗧𝗘𝗡𝗨:\n─────────────────\n%1\n─────────────────\n💬 Répondez à ce message pour répondre`,
+			success: `🍓━━━━━━━━🍓\n✅ 𝗘𝗡𝗩𝗢𝗬𝗘́\n\nMessage envoyé à %1 admin(s) !\n%2\n🍓━━━━━━━━🍓`,
+			failed: `🍓━━━━━━━━🍓\n❌ 𝗘́𝗖𝗛𝗘𝗖\nErreur d'envoi à %1 admin(s)\n%2\n🍓━━━━━━━━🍓`,
+			reply: `🍓━━━━━━━━🍓\n⌖ 𝗥𝗘́𝗣𝗢𝗡𝗦𝗘 𝗔𝗗𝗠𝗜𝗡 %1\n─────────────────\n%2\n─────────────────\n💬 Répondez pour continuer\n🍓━━━━━━━━🍓`,
+			replySuccess: `🍓━━━━━━━━🍓\n✅ 𝗘𝗡𝗩𝗢𝗬𝗘́\nRéponse envoyée à l'admin !\n🍓━━━━━━━━🍓`,
+			feedback: `🍓━━━━━━━━🍓\n✎ 𝗠𝗘𝗦𝗦𝗔𝗚𝗘 𝗨𝗦𝗘𝗥 %1\n- 𝗜𝗗: %2%3\n\n📝 𝗖𝗢𝗡𝗧𝗘𝗡𝗨:\n─────────────────\n%4\n─────────────────\n💬 Répondez pour répondre\n🍓━━━━━━━━🍓`,
+			replyUserSuccess: `🍓━━━━━━━━🍓\n✅ 𝗘𝗡𝗩𝗢𝗬𝗘́\nRéponse envoyée à l'utilisateur !\n🍓━━━━━━━━🍓`,
+			noAdmin: `🍓━━━━━━━━🍓\n❌ 𝗘𝗥𝗥𝗘𝗨𝗥\nAucun admin configuré pour ce bot\n🍓━━━━━━━━🍓`
 		}
 	},
 
@@ -78,14 +79,11 @@ module.exports = {
 		if (isGroup) {
 			const threadInfo = await threadsData.get(threadID) || {};
 			groupDetails = getLang("sendByGroup", threadInfo.threadName || "Groupe sans nom", threadID);
-		} else {
+	} else {
 			groupDetails = getLang("sendByUser");
 		}
 
-		const msg = "==📨️ APPEL ADMIN 📨️=="
-			+ `\n- Nom d'utilisateur : ${senderName}`
-			+ `\n- ID utilisateur : ${senderID}`
-			+ groupDetails;
+		const msg = `🍓━━━━━━━━🍓\n📨 𝗔𝗣𝗣𝗘𝗟 𝗔𝗗𝗠𝗜𝗡 📨\n🍓━━━━━━━━🍓\n👤 𝗡𝗼𝗺: ${senderName}\n🆔 𝗜𝗗: ${senderID}` + groupDetails;
 
 		const attachments = await getStreamsFromAttachment(
 			[...event.attachments, ...(event.messageReply?.attachments || [])]
@@ -120,20 +118,20 @@ module.exports = {
 			} catch (err) {
 				failedIDs.push({ adminID: uid, error: err });
 			}
-		}
+	}
 
 		let msg2 = "";
 		if (successIDs.length > 0) {
 			msg2 += getLang("success", successIDs.length,
-				adminNames.filter(item => successIDs.includes(item.id)).map(item => ` <@${item.id}> (${item.name})`).join("\n")
+				adminNames.filter(item => successIDs.includes(item.id)).map(item => ` • ${item.name} (${item.id})`).join("\n")
 			);
-		}
+	}
 		if (failedIDs.length > 0) {
 			msg2 += (msg2 ? "\n" : "") + getLang("failed", failedIDs.length,
-				failedIDs.map(item => ` <@${item.adminID}>`).join("\n")
+				failedIDs.map(item => ` • ${item.adminID}`).join("\n")
 			);
 			log.err("APPEL ADMIN EN ÉCHEC", failedIDs);
-		}
+	}
 		
 		return message.reply({
 			body: msg2,
@@ -203,6 +201,6 @@ module.exports = {
 			}
 			default:
 				break;
-		}
+	}
 	}
 };
